@@ -11,53 +11,19 @@
     
     <style>
         :root {
-            --bg-color: #000000;
-            --card-bg: #050505;
-            --card-hover: #0a0a0a;
-            --border-color: rgba(255, 255, 255, 0.06);
-            --border-hover: rgba(255, 255, 255, 0.2);
-            --text-primary: #F2F2F2;
-            --text-secondary: #888888;
-            --font-main: 'Manrope', sans-serif;
-            --radius-lg: 24px;
-            --radius-full: 100px;
+            --bg-color: #000000; --card-bg: #050505; --card-hover: #0a0a0a;
+            --border-color: rgba(255, 255, 255, 0.06); --border-hover: rgba(255, 255, 255, 0.2);
+            --text-primary: #F2F2F2; --text-secondary: #888888;
+            --font-main: 'Manrope', sans-serif; --radius-lg: 24px; --radius-full: 100px;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: var(--font-main);
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-            line-height: 1.5;
-        }
-
+        body { background-color: var(--bg-color); color: var(--text-primary); font-family: var(--font-main); -webkit-font-smoothing: antialiased; overflow-x: hidden; line-height: 1.5; }
         a { text-decoration: none; color: inherit; }
-        img, video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* Vibe Enablers */
-        .noise-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 9999; opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-        
-        .ambient-glow {
-            position: fixed; top: 0; left: 50%; transform: translateX(-50%);
-            width: 80vw; height: 50vw;
-            background: radial-gradient(ellipse at center, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0) 70%);
-            filter: blur(80px); z-index: -1; pointer-events: none;
-        }
+        .noise-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+        .ambient-glow { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 80vw; height: 50vw; background: radial-gradient(ellipse at center, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0) 70%); filter: blur(80px); z-index: -1; pointer-events: none; }
 
-        /* Navigation */
-        nav {
-            position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
-            background: rgba(5, 5, 5, 0.7); backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color); border-radius: var(--radius-full);
-            padding: 12px 24px; display: flex; align-items: center; gap: 32px; z-index: 1000;
-        }
+        nav { position: fixed; top: 24px; left: 50%; transform: translateX(-50%); background: rgba(5, 5, 5, 0.7); backdrop-filter: blur(16px); border: 1px solid var(--border-color); border-radius: var(--radius-full); padding: 12px 24px; display: flex; align-items: center; gap: 32px; z-index: 1000; }
         .nav-logo { font-weight: 800; font-size: 1.1rem; letter-spacing: -0.5px; }
         .nav-links { display: flex; gap: 24px; }
         .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); transition: color 0.3s; }
@@ -65,104 +31,43 @@
         .nav-btn { background: var(--text-primary); color: var(--bg-color); padding: 8px 16px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 600; transition: transform 0.2s; }
         .nav-btn:hover { transform: scale(1.05); }
 
-        /* About Hero */
-        .about-hero {
-            padding: 12rem 5% 4rem;
-            max-width: 1280px;
-            margin: 0 auto;
-            text-align: center;
-        }
+        .about-hero { padding: 12rem 5% 4rem; max-width: 1280px; margin: 0 auto; text-align: center; }
+        .about-hero h1 { font-size: clamp(3.5rem, 8vw, 6.5rem); font-weight: 500; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 1.5rem; }
+        .about-hero p { font-size: 1.25rem; color: var(--text-secondary); max-width: 650px; margin: 0 auto; }
 
-        .about-hero h1 {
-            font-size: clamp(3.5rem, 8vw, 6.5rem);
-            font-weight: 500; letter-spacing: -0.04em; line-height: 1.05;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-hero p {
-            font-size: 1.25rem; color: var(--text-secondary);
-            max-width: 600px; margin: 0 auto;
-        }
-
-        /* About Bento Grid */
-        .bento-wrapper {
-            max-width: 1280px; margin: 0 auto; padding: 0 24px 8rem;
-        }
-
-        .bento-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr);
-            grid-auto-rows: 350px; gap: 16px;
-        }
-
-        .bento-card {
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg); position: relative; overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; flex-direction: column; padding: 32px;
-        }
-
+        .bento-wrapper { max-width: 1280px; margin: 0 auto; padding: 0 24px 8rem; }
+        .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 350px; gap: 16px; }
+        .bento-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius-lg); position: relative; overflow: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; padding: 32px; }
         .bento-card:hover { background: var(--card-hover); border-color: var(--border-hover); }
 
-        /* Spans */
-        .col-2 { grid-column: span 2; }
-        .col-3 { grid-column: span 3; }
-        .col-4 { grid-column: span 4; }
-        .row-2 { grid-row: span 2; }
+        .col-2 { grid-column: span 2; } .col-4 { grid-column: span 4; } .row-2 { grid-row: span 2; }
 
-        /* Portrait Card */
         .portrait-card { padding: 0; justify-content: flex-end; }
-        .portrait-card img { filter: grayscale(20%); transition: transform 0.8s ease, filter 0.8s ease; }
+        .portrait-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); transition: transform 0.8s ease, filter 0.8s ease; }
         .portrait-card:hover img { transform: scale(1.03); filter: grayscale(0%); }
-        
-        .overlay-gradient {
-            position: absolute; bottom: 0; left: 0; width: 100%;
-            padding: 40px 32px 32px; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
-            z-index: 2;
-        }
-
+        .overlay-gradient { position: absolute; bottom: 0; left: 0; width: 100%; padding: 40px 32px 32px; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%); z-index: 2; }
         .overlay-gradient h3 { font-size: 1.5rem; font-weight: 500; }
         .overlay-gradient span { color: var(--text-secondary); font-size: 0.9rem; }
 
-        /* Text Cards */
         .text-content { margin-top: auto; }
         .text-content h2 { font-size: 2rem; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 16px; }
         .text-content p { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.6; }
 
-        /* List Grid */
-        .capabilities-list {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: auto;
-        }
-        .capabilities-list div {
-            padding: 16px; background: rgba(255,255,255,0.02);
-            border: 1px solid var(--border-color); border-radius: 12px;
-            font-size: 0.95rem; font-weight: 500; color: var(--text-primary);
-        }
+        /* Custom inner layout for Books card */
+        .book-list { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
+        .book-item { padding: 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 12px; }
+        .book-item h4 { font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+        .book-item p { font-size: 0.85rem; color: var(--text-secondary); margin: 0; line-height: 1.4; }
 
-        /* Massive Footer */
-        footer {
-            padding: 8rem 24px; text-align: center; border-top: 1px solid var(--border-color);
-        }
-        .footer-title {
-            font-size: clamp(4rem, 12vw, 12rem); font-weight: 700; letter-spacing: -0.05em;
-            line-height: 0.85; color: var(--text-primary); transition: color 0.3s; display: inline-block;
-        }
+        footer { padding: 8rem 24px; text-align: center; border-top: 1px solid var(--border-color); }
+        .footer-title { font-size: clamp(4rem, 12vw, 12rem); font-weight: 700; letter-spacing: -0.05em; line-height: 0.85; color: var(--text-primary); transition: color 0.3s; display: inline-block; }
         .footer-title:hover { color: rgba(255,255,255,0.7); }
 
-        /* Scroll Animations */
         .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-        @media (max-width: 1024px) {
-            .bento-grid { grid-template-columns: repeat(2, 1fr); }
-            .col-3, .col-4 { grid-column: span 2; }
-        }
-        @media (max-width: 600px) {
-            .bento-grid { grid-template-columns: 1fr; }
-            .col-2, .col-3, .col-4 { grid-column: span 1; }
-            .row-2 { grid-row: span 1; }
-            .nav-links { display: none; }
-            .capabilities-list { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 1024px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .bento-grid { grid-template-columns: 1fr; } .col-2, .col-4 { grid-column: span 1; } .row-2 { grid-row: span 1; } .nav-links { display: none; } }
     </style>
 </head>
 <body>
@@ -176,74 +81,72 @@
             <a href="index.html#work">Work</a>
             <a href="about.html" class="active">About</a>
         </div>
-        <a href="mailto:hello@justinmishra.com" class="nav-btn">Let's Talk</a>
+        <a href="contact.html" class="nav-btn">Let's Talk</a>
     </nav>
 
     <section class="about-hero fade-up">
-        <h1>Behind the<br>Lens.</h1>
-        <p>A multidisciplinary storyteller capturing truth through movement, light, and unscripted moments.</p>
+        <h1>Behind the<br>Lens & Pen.</h1>
+        <p>A multidisciplinary artist capturing truth through cinematic advertising, fashion campaigns, and the written word.</p>
     </section>
 
     <section class="bento-wrapper">
         <div class="bento-grid">
             
-            <!-- Portrait Image (Spans 2 columns, 2 rows) -->
             <div class="bento-card portrait-card col-2 row-2 fade-up" style="transition-delay: 0.1s;">
                 <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80" alt="Justin Mishra">
                 <div class="overlay-gradient">
                     <h3>Justin Mishra</h3>
-                    <span>Director / Choreographer</span>
+                    <span>Filmmaker / Writer</span>
                 </div>
             </div>
 
-            <!-- Bio Card (Spans 2 columns) -->
             <div class="bento-card col-2 fade-up" style="transition-delay: 0.2s;">
                 <div class="text-content">
-                    <h2>The Vision</h2>
-                    <p>Based in Delhi-NCR, my journey spans across independent short films, high-end wedding cinematography, and stage choreography. I believe that strong visuals begin with strong intent. Before the camera rolls, I take time to understand the rhythm of the subject, the natural light of the space, and the story that truly needs to be told.</p>
+                    <h2>Career & Vision</h2>
+                    <p>Active in the creative industry since 2016, I am an Indian filmmaker, director, and cinematographer based between Mumbai and Noida. Documented on IMDb, my work spans across high-end cinematic advertising, fashion campaigns, and directing visual narratives. I operate extensively as a Director of Photography (DOP) on fashion and commercial editorial shoots.</p>
                 </div>
             </div>
 
-            <!-- Capabilities Grid -->
-            <div class="bento-card col-2 fade-up" style="transition-delay: 0.3s;">
-                <div class="text-content" style="margin-bottom: 24px;">
-                    <h2>Capabilities</h2>
+            <div class="bento-card col-2 fade-up" style="transition-delay: 0.3s; overflow-y: auto;">
+                <div class="text-content">
+                    <h2>Published Works & Projects</h2>
+                    <p>Exploring modern psychological and emotional themes.</p>
                 </div>
-                <div class="capabilities-list">
-                    <div>Cinematography</div>
-                    <div>Creative Direction</div>
-                    <div>Choreography</div>
-                    <div>Color Grading</div>
-                    <div>Event Coverage</div>
-                    <div>Portraiture</div>
+                <div class="book-list">
+                    <div class="book-item">
+                        <h4>Love From Heavens and Humans from Hell</h4>
+                        <p>Published Book • Author</p>
+                    </div>
+                    <div class="book-item">
+                        <h4>The Unreasonable Man</h4>
+                        <p>Published Book • Author</p>
+                    </div>
+                    <div class="book-item">
+                        <h4>The Last City</h4>
+                        <p>Sci-Fi Film • In Development</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Philosophy Quote (Spans full width) -->
+            <!-- Philosophy Quote -->
             <div class="bento-card col-4 fade-up" style="transition-delay: 0.1s; display: flex; align-items: center; justify-content: center; text-align: center;">
-                <h2 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; max-width: 800px; line-height: 1.3; color: var(--text-primary);">
-                    "The best moments aren't directed, they are anticipated and captured."
+                <h2 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; max-width: 900px; line-height: 1.3; color: var(--text-primary);">
+                    "Whether framing a commercial shoot or writing psychological themes, the goal is to distill raw feeling into art."
                 </h2>
             </div>
 
         </div>
     </section>
 
-    <!-- Massive Footer -->
     <footer class="fade-up">
-        <a href="mailto:hello@justinmishra.com" class="footer-title">START A<br>PROJECT</a>
+        <a href="contact.html" class="footer-title">START A<br>PROJECT</a>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
+                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
             }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-
             document.querySelectorAll('.fade-up').forEach((el) => { observer.observe(el); });
         });
     </script>
