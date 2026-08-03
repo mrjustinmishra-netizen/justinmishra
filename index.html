@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Justin Mishra | Filmmaker • Photographer • Choreographer</title>
+    <title>Justin Mishra | Creative Director</title>
     
-    <!-- Typography: Syne for Headers, Inter for Body -->
+    <!-- Modern Tech/Agency Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CSS Variables & Reset --- */
+        /* --- CSS VARIABLES --- */
         :root {
-            --bg-color: #0d0d0d;
-            --surface-color: #1a1a1a;
-            --text-primary: #f2f2f2;
-            --text-secondary: #a0a0a0;
-            --accent-gold: #d4af37;
-            --accent-hover: #f0c950;
-            --font-head: 'Syne', sans-serif;
-            --font-body: 'Inter', sans-serif;
+            --bg-base: #020202;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-hover: rgba(255, 255, 255, 0.06);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #FFFFFF;
+            --text-muted: #999999;
+            --accent: #E0E0E0;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
         }
 
         * {
@@ -30,456 +30,421 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: var(--font-body);
-            line-height: 1.6;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: var(--font-head);
-            font-weight: 700;
+            line-height: 1.5;
         }
 
         a {
             text-decoration: none;
-            color: var(--text-primary);
-            transition: color 0.3s ease;
+            color: inherit;
         }
 
-        a:hover {
-            color: var(--accent-gold);
+        img, video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        section {
-            padding: 5rem 2rem;
+        /* --- BACKGROUND GLOW EFFECT --- */
+        .glow-bg {
+            position: fixed;
+            top: -20%;
+            left: 20%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(80px);
+            animation: pulse 10s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.5; }
+            100% { transform: scale(1.2) translate(5%, 5%); opacity: 1; }
+        }
+
+        /* --- FLOATING NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            display: flex;
+            gap: 2rem;
+            z-index: 1000;
+            align-items: center;
+        }
+
+        nav a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--text-main);
+        }
+
+        nav .logo {
+            font-weight: 700;
+            color: var(--text-main);
+            padding-right: 2rem;
+            border-right: 1px solid var(--border-color);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 12rem 5% 4rem;
+            text-align: center;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* --- 1. Hero Section --- */
-        .hero {
-            position: relative;
-            height: 100vh;
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+        }
+
+        .badge span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #4ade80; /* Green dot */
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* --- INFINITE MARQUEE --- */
+        .marquee-wrapper {
+            width: 100%;
+            overflow: hidden;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+            margin-bottom: 4rem;
+        }
+
+        .marquee {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 2rem;
-            max-width: 100%;
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
         }
 
-        /* Auto-playing Background Video */
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -2;
-            opacity: 0.6; /* Dimmed for overlay readability */
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(13,13,13,0.3) 0%, rgba(13,13,13,0.9) 100%);
-            z-index: -1;
-        }
-
-        .hero-content h1 {
-            font-size: clamp(2.5rem, 5vw, 5rem);
-            margin-bottom: 1rem;
+        .marquee span {
+            font-size: 1rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-right: 3rem;
+            color: var(--text-muted);
         }
 
-        .hero-content p {
-            font-size: 1.2rem;
-            color: var(--accent-gold);
-            margin-bottom: 2.5rem;
-            letter-spacing: 1px;
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
-        .btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background-color: var(--accent-gold);
-            color: var(--bg-color);
-            font-family: var(--font-head);
-            font-weight: 700;
-            text-transform: uppercase;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+        /* --- BENTO GRID LAYOUT --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5% 8rem;
         }
 
-        .btn:hover {
-            background-color: var(--accent-hover);
-            transform: translateY(-3px);
-            color: var(--bg-color);
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 350px;
+            gap: 1.5rem;
         }
 
-        .btn-outline {
-            background-color: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--text-primary);
-            margin-left: 1rem;
+        /* Glassmorphism Card Style */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 32px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
 
-        .btn-outline:hover {
-            background-color: var(--text-primary);
-            color: var(--bg-color);
+        .card:hover {
+            background: var(--card-hover);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* --- 2. Portfolio Showcase --- */
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
+        /* Grid Sizing Rules */
+        .span-2 { grid-column: span 2; }
+        .span-3 { grid-column: span 3; }
+        .row-2 { grid-row: span 2; }
+
+        /* Specific Card Adjustments */
+        .card-media {
+            padding: 0; /* Remove padding to let image fill */
         }
 
-        .section-header h2 {
-            font-size: 2.5rem;
+        .card-media img, .card-media video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            transition: transform 0.8s ease;
+        }
+
+        .card-media:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-media .overlay-text {
+            position: relative;
+            z-index: 2;
+            padding: 2.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
         }
 
-        .filter-container {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+        .card p {
+            color: var(--text-muted);
+            font-size: 1rem;
         }
 
-        .filter-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-family: var(--font-head);
-            font-size: 1.1rem;
-            cursor: pointer;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            color: var(--accent-gold);
-            border-bottom: 2px solid var(--accent-gold);
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .portfolio-item {
-            position: relative;
-            border-radius: 8px;
-            overflow: hidden;
-            background: var(--surface-color);
-            aspect-ratio: 16/9;
-            display: none; /* Hidden by default, JS handles display */
-        }
-
-        .portfolio-item.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .portfolio-item img, .portfolio-item video, .portfolio-item iframe {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border: none;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- 3. About Section --- */
-        .about-container {
-            display: flex;
-            align-items: center;
-            gap: 4rem;
-        }
-
-        .about-image {
-            flex: 1;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .about-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .about-text {
-            flex: 1.5;
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        /* --- 4. Services Section --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: var(--surface-color);
-            padding: 3rem 2rem;
-            border-radius: 8px;
-            text-align: center;
-            border-top: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover {
-            border-top: 3px solid var(--accent-gold);
-            transform: translateY(-10px);
-            background: #222;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .service-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* --- 5. Contact & Testimonials --- */
-        .contact-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            background: var(--surface-color);
-            padding: 4rem;
-            border-radius: 8px;
-        }
-
-        .contact-info blockquote {
-            font-style: italic;
-            color: var(--text-secondary);
-            border-left: 4px solid var(--accent-gold);
-            padding-left: 1rem;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .contact-form input, .contact-form textarea {
-            width: 100%;
-            padding: 1rem;
-            background: var(--bg-color);
-            border: 1px solid #333;
-            color: var(--text-primary);
-            font-family: var(--font-body);
-            border-radius: 4px;
+        /* Text Only Card */
+        .card-text {
+            justify-content: flex-start;
         }
         
-        .contact-form input:focus, .contact-form textarea:focus {
-            outline: none;
-            border-color: var(--accent-gold);
+        .card-text h2 {
+            font-size: 2.5rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
-        .social-links {
-            margin-top: 2rem;
+        .icon-top-right {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
             display: flex;
-            gap: 1.5rem;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .about-container, .contact-container {
-                flex-direction: column;
+        /* --- BUTTONS --- */
+        .btn-primary {
+            display: inline-block;
+            background: var(--text-main);
+            color: var(--bg-base);
+            padding: 1rem 2.5rem;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
+
+        /* --- SCROLL REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .bento-grid {
                 grid-template-columns: 1fr;
+                grid-auto-rows: 300px;
             }
-            .btn {
-                margin-bottom: 1rem;
-            }
-            .btn-outline {
-                margin-left: 0;
-            }
-            .contact-container {
-                padding: 2rem;
-            }
+            .span-2, .span-3 { grid-column: span 1; }
+            .row-2 { grid-row: span 1; }
+            nav { width: 90%; justify-content: space-between; }
+            nav a:not(.logo) { display: none; } /* Hide links on mobile */
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. HERO SECTION -->
-    <section id="hero" class="hero">
-        <!-- Replace 'YOUR_VIDEO.mp4' with your actual background loop -->
-        <video class="hero-video" autoplay loop muted playsinline>
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-        </video>
-        <div class="hero-overlay"></div>
-        
-        <div class="hero-content">
-            <h1>Justin Mishra</h1>
-            <p>Filmmaker • Photographer • Choreographer</p>
-            <a href="#portfolio" class="btn">Watch Showreel</a>
-            <a href="#contact" class="btn btn-outline">Book a Session</a>
-        </div>
+    <!-- Soft glowing orb in the background -->
+    <div class="glow-bg"></div>
+
+    <!-- Floating Pill Navigation -->
+    <nav>
+        <a href="#" class="logo">JM.</a>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero reveal">
+        <div class="badge"><span></span> Available for new projects</div>
+        <h1>Visuals that<br>speak volumes.</h1>
+        <p>A multidisciplinary creator specializing in cinematography, photography, and spatial choreography based in Delhi-NCR.</p>
+        <a href="#contact" class="btn-primary">Book a Session</a>
     </section>
 
-    <!-- 2. PORTFOLIO SHOWCASE -->
-    <section id="portfolio">
-        <div class="section-header">
-            <h2>Selected Works</h2>
+    <!-- Scrolling Text Marquee -->
+    <div class="marquee-wrapper reveal">
+        <div class="marquee">
+            <!-- Repeated text for infinite loop effect -->
+            <span>Cinematography</span><span>•</span>
+            <span>Short Films</span><span>•</span>
+            <span>Wedding Photography</span><span>•</span>
+            <span>Choreography</span><span>•</span>
+            <span>Creative Direction</span><span>•</span>
+            <span>Cinematography</span><span>•</span>
+            <span>Short Films</span><span>•</span>
+            <span>Wedding Photography</span><span>•</span>
+            <span>Choreography</span><span>•</span>
+            <span>Creative Direction</span><span>•</span>
         </div>
-        
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filterSelection('all')">All</button>
-            <button class="filter-btn" onclick="filterSelection('film')">Filmmaking</button>
-            <button class="filter-btn" onclick="filterSelection('photo')">Photography</button>
-            <button class="filter-btn" onclick="filterSelection('dance')">Choreography</button>
-        </div>
+    </div>
 
-        <div class="portfolio-grid">
-            <!-- Filmmaking Embed Example -->
-            <div class="portfolio-item film show">
-                <!-- Replace src with actual YouTube/Vimeo embed links. Added loading="lazy" -->
-                <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" loading="lazy" allowfullscreen></iframe>
-            </div>
+    <!-- BENTO GRID -->
+    <main class="container">
+        <div class="bento-grid">
             
-            <!-- Photography Image Example -->
-            <div class="portfolio-item photo show">
-                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" loading="lazy" alt="Wedding Photography">
-            </div>
-
-            <!-- Choreography Video Example (Vertical/Reels aspect) -->
-            <div class="portfolio-item dance show" style="aspect-ratio: 9/16;">
-                <img src="https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Dance Choreography">
-            </div>
-            
-            <div class="portfolio-item photo show">
-                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80" loading="lazy" alt="Portraiture">
-            </div>
-
-            <div class="portfolio-item film show">
-                <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80" loading="lazy" alt="Short Film Poster">
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. ABOUT SECTION -->
-    <section id="about">
-        <div class="about-container">
-            <div class="about-image">
-                <!-- Replace with Justin's sleek portrait -->
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" loading="lazy" alt="Portrait of Justin Mishra">
-            </div>
-            <div class="about-text">
-                <h2>The Vision Behind the Lens</h2>
-                <br>
-                <p>Based in Delhi-NCR, I am a storyteller at heart. Whether framing a cinematic sequence, capturing a candid wedding moment, or directing the flow of a choreography set, my goal is to distill raw emotion into visual art.</p>
-                <p>My journey spans across independent short films like <em>The Flow of Remembrance</em> and <em>Sapno Ka Ghar</em>, high-end wedding cinematography, and stage choreography. By blending the rhythm of dance with the composition of a camera, I bring a unique, dynamic perspective to every project.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. SERVICES SECTION -->
-    <section id="services">
-        <div class="section-header">
-            <h2>Services & Packages</h2>
-        </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <h3>Cinematography</h3>
-                <p>Full-scale production for short films, travel series, and promotional showreels. From directing to final editing, I craft cinematic visual narratives.</p>
-            </div>
-            <div class="service-card">
-                <h3>Photography</h3>
-                <p>Capturing the ephemeral moments. Specializing in high-end wedding photography, pre-wedding shoots, candid event coverage, and portraiture.</p>
-            </div>
-            <div class="service-card">
-                <h3>Choreography</h3>
-                <p>Bringing rhythm to life. I offer creative direction and choreography for wedding dances, stage performances, and conceptual video shoots.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. CONTACT & TESTIMONIALS -->
-    <section id="contact">
-        <div class="contact-container">
-            <div class="contact-info">
-                <h2>Let's Create Together</h2>
-                <br>
-                <blockquote>"Justin has an incredible eye for detail. The way he captured our wedding felt like a cinematic movie. Absolute magic." <br><br>— A & S</blockquote>
-                <blockquote>"His choreography mixed with his camera work is unmatched. He knows exactly how movement translates to screen." <br><br>— Studio X</blockquote>
-                
-                <div class="social-links">
-                    <a href="#">YouTube</a>
-                    <a href="#">Instagram</a>
-                    <a href="#" style="color: var(--accent-gold);">WhatsApp Me</a>
+            <!-- Bento Box 1: Intro / Text (Spans 2 columns) -->
+            <div class="card card-text span-2 reveal">
+                <h2>The intersection of motion and emotion.</h2>
+                <p>I blend the rhythm of dance with the composition of a camera. Whether framing a cinematic sequence or capturing an unscripted wedding moment, I distill raw feeling into visual art.</p>
+                <div class="icon-top-right">
+                    <!-- Simple SVG Arrow -->
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                 </div>
             </div>
-            
-            <form class="contact-form" action="#" method="POST">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="text" name="project" placeholder="Project Type (e.g. Wedding, Short Film)" required>
-                <input type="date" name="date">
-                <input type="text" name="budget" placeholder="Estimated Budget">
-                <textarea name="message" rows="5" placeholder="Tell me about your vision..." required></textarea>
-                <button type="submit" class="btn">Send Inquiry</button>
-            </form>
-        </div>
-    </section>
 
-    <!-- Script for Portfolio Filtering -->
+            <!-- Bento Box 2: Quick Stat / Contact -->
+            <div class="card reveal">
+                <h3>5+ Years</h3>
+                <p>Crafting visual stories for brands, couples, and artists globally.</p>
+                <br>
+                <a href="mailto:hello@justinmishra.com" style="color: #fff; text-decoration: underline;">Say Hello</a>
+            </div>
+
+            <!-- Bento Box 3: Main Showreel Video (Spans 2 columns, tall) -->
+            <div class="card card-media span-2 row-2 reveal">
+                <video autoplay loop muted playsinline>
+                    <!-- Replace with your actual video link -->
+                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                </video>
+                <div class="overlay-text">
+                    <h3>2024 Showreel</h3>
+                    <p>Director / Cinematographer</p>
+                </div>
+            </div>
+
+            <!-- Bento Box 4: Project 1 -->
+            <div class="card card-media reveal">
+                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80" alt="Short Film">
+                <div class="overlay-text">
+                    <h3>The Flow of Remembrance</h3>
+                    <p>Short Film</p>
+                </div>
+            </div>
+
+            <!-- Bento Box 5: Project 2 -->
+            <div class="card card-media reveal">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" alt="Wedding">
+                <div class="overlay-text">
+                    <h3>Unscripted</h3>
+                    <p>Wedding Series</p>
+                </div>
+            </div>
+
+            <!-- Bento Box 6: Services List (Spans full width) -->
+            <div class="card span-3 reveal" style="flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+                <div>
+                    <h2>Let's build something.</h2>
+                    <p>Currently accepting commissions for Q3 2024.</p>
+                </div>
+                <a href="#contact" class="btn-primary">Start a Project</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Intersection Observer for Scroll Reveal -->
     <script>
-        function filterSelection(c) {
-            var x, i;
-            x = document.getElementsByClassName("portfolio-item");
-            if (c == "all") c = "";
-            for (i = 0; i < x.length; i++) {
-                x[i].classList.remove("show");
-                if (x[i].className.indexOf(c) > -1) {
-                    x[i].classList.add("show");
-                }
-            }
-            
-            // Handle Active Button State
-            var btns = document.getElementsByClassName("filter-btn");
-            for (i = 0; i < btns.length; i++) {
-                btns[i].classList.remove("active");
-                if (event.currentTarget === btns[i]) {
-                    btns[i].classList.add("active");
-                }
-            }
-        }
-        
-        // Trigger initial state
         document.addEventListener("DOMContentLoaded", function() {
-            filterSelection('all');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach((el) => {
+                observer.observe(el);
+            });
         });
     </script>
-
 </body>
 </html>
