@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Justin Mishra | Filmmaker • Photographer • Choreographer</title>
+    
+    <!-- Typography: Syne for Headers, Inter for Body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --bg-color: #0d0d0d;
+            --surface-color: #1a1a1a;
+            --text-primary: #f2f2f2;
+            --text-secondary: #a0a0a0;
+            --accent-gold: #d4af37;
+            --accent-hover: #f0c950;
+            --font-head: 'Syne', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-head);
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-gold);
+        }
+
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- 1. Hero Section --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            max-width: 100%;
+        }
+
+        /* Auto-playing Background Video */
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.6; /* Dimmed for overlay readability */
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(13,13,13,0.3) 0%, rgba(13,13,13,0.9) 100%);
+            z-index: -1;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--accent-gold);
+            margin-bottom: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--accent-gold);
+            color: var(--bg-color);
+            font-family: var(--font-head);
+            font-weight: 700;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-3px);
+            color: var(--bg-color);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--text-primary);
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--text-primary);
+            color: var(--bg-color);
+        }
+
+        /* --- 2. Portfolio Showcase --- */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            color: var(--accent-gold);
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--surface-color);
+            aspect-ratio: 16/9;
+            display: none; /* Hidden by default, JS handles display */
+        }
+
+        .portfolio-item.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .portfolio-item img, .portfolio-item video, .portfolio-item iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 3. About Section --- */
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .about-text {
+            flex: 1.5;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* --- 4. Services Section --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--surface-color);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-top: 3px solid var(--accent-gold);
+            transform: translateY(-10px);
+            background: #222;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* --- 5. Contact & Testimonials --- */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            background: var(--surface-color);
+            padding: 4rem;
+            border-radius: 8px;
+        }
+
+        .contact-info blockquote {
+            font-style: italic;
+            color: var(--text-secondary);
+            border-left: 4px solid var(--accent-gold);
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-color);
+            border: 1px solid #333;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            border-radius: 4px;
+        }
+        
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .social-links {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-container, .contact-container {
+                flex-direction: column;
+                grid-template-columns: 1fr;
+            }
+            .btn {
+                margin-bottom: 1rem;
+            }
+            .btn-outline {
+                margin-left: 0;
+            }
+            .contact-container {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. HERO SECTION -->
+    <section id="hero" class="hero">
+        <!-- Replace 'YOUR_VIDEO.mp4' with your actual background loop -->
+        <video class="hero-video" autoplay loop muted playsinline>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <h1>Justin Mishra</h1>
+            <p>Filmmaker • Photographer • Choreographer</p>
+            <a href="#portfolio" class="btn">Watch Showreel</a>
+            <a href="#contact" class="btn btn-outline">Book a Session</a>
+        </div>
+    </section>
+
+    <!-- 2. PORTFOLIO SHOWCASE -->
+    <section id="portfolio">
+        <div class="section-header">
+            <h2>Selected Works</h2>
+        </div>
+        
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterSelection('all')">All</button>
+            <button class="filter-btn" onclick="filterSelection('film')">Filmmaking</button>
+            <button class="filter-btn" onclick="filterSelection('photo')">Photography</button>
+            <button class="filter-btn" onclick="filterSelection('dance')">Choreography</button>
+        </div>
+
+        <div class="portfolio-grid">
+            <!-- Filmmaking Embed Example -->
+            <div class="portfolio-item film show">
+                <!-- Replace src with actual YouTube/Vimeo embed links. Added loading="lazy" -->
+                <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" loading="lazy" allowfullscreen></iframe>
+            </div>
+            
+            <!-- Photography Image Example -->
+            <div class="portfolio-item photo show">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" loading="lazy" alt="Wedding Photography">
+            </div>
+
+            <!-- Choreography Video Example (Vertical/Reels aspect) -->
+            <div class="portfolio-item dance show" style="aspect-ratio: 9/16;">
+                <img src="https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=600&q=80" loading="lazy" alt="Dance Choreography">
+            </div>
+            
+            <div class="portfolio-item photo show">
+                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80" loading="lazy" alt="Portraiture">
+            </div>
+
+            <div class="portfolio-item film show">
+                <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80" loading="lazy" alt="Short Film Poster">
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. ABOUT SECTION -->
+    <section id="about">
+        <div class="about-container">
+            <div class="about-image">
+                <!-- Replace with Justin's sleek portrait -->
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" loading="lazy" alt="Portrait of Justin Mishra">
+            </div>
+            <div class="about-text">
+                <h2>The Vision Behind the Lens</h2>
+                <br>
+                <p>Based in Delhi-NCR, I am a storyteller at heart. Whether framing a cinematic sequence, capturing a candid wedding moment, or directing the flow of a choreography set, my goal is to distill raw emotion into visual art.</p>
+                <p>My journey spans across independent short films like <em>The Flow of Remembrance</em> and <em>Sapno Ka Ghar</em>, high-end wedding cinematography, and stage choreography. By blending the rhythm of dance with the composition of a camera, I bring a unique, dynamic perspective to every project.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SERVICES SECTION -->
+    <section id="services">
+        <div class="section-header">
+            <h2>Services & Packages</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Cinematography</h3>
+                <p>Full-scale production for short films, travel series, and promotional showreels. From directing to final editing, I craft cinematic visual narratives.</p>
+            </div>
+            <div class="service-card">
+                <h3>Photography</h3>
+                <p>Capturing the ephemeral moments. Specializing in high-end wedding photography, pre-wedding shoots, candid event coverage, and portraiture.</p>
+            </div>
+            <div class="service-card">
+                <h3>Choreography</h3>
+                <p>Bringing rhythm to life. I offer creative direction and choreography for wedding dances, stage performances, and conceptual video shoots.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. CONTACT & TESTIMONIALS -->
+    <section id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Let's Create Together</h2>
+                <br>
+                <blockquote>"Justin has an incredible eye for detail. The way he captured our wedding felt like a cinematic movie. Absolute magic." <br><br>— A & S</blockquote>
+                <blockquote>"His choreography mixed with his camera work is unmatched. He knows exactly how movement translates to screen." <br><br>— Studio X</blockquote>
+                
+                <div class="social-links">
+                    <a href="#">YouTube</a>
+                    <a href="#">Instagram</a>
+                    <a href="#" style="color: var(--accent-gold);">WhatsApp Me</a>
+                </div>
+            </div>
+            
+            <form class="contact-form" action="#" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="text" name="project" placeholder="Project Type (e.g. Wedding, Short Film)" required>
+                <input type="date" name="date">
+                <input type="text" name="budget" placeholder="Estimated Budget">
+                <textarea name="message" rows="5" placeholder="Tell me about your vision..." required></textarea>
+                <button type="submit" class="btn">Send Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Script for Portfolio Filtering -->
+    <script>
+        function filterSelection(c) {
+            var x, i;
+            x = document.getElementsByClassName("portfolio-item");
+            if (c == "all") c = "";
+            for (i = 0; i < x.length; i++) {
+                x[i].classList.remove("show");
+                if (x[i].className.indexOf(c) > -1) {
+                    x[i].classList.add("show");
+                }
+            }
+            
+            // Handle Active Button State
+            var btns = document.getElementsByClassName("filter-btn");
+            for (i = 0; i < btns.length; i++) {
+                btns[i].classList.remove("active");
+                if (event.currentTarget === btns[i]) {
+                    btns[i].classList.add("active");
+                }
+            }
+        }
+        
+        // Trigger initial state
+        document.addEventListener("DOMContentLoaded", function() {
+            filterSelection('all');
+        });
+    </script>
+
+</body>
+</html>
