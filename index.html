@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Justin Mishra | Creative Director</title>
+    <title>Justin Mishra | Vertora Style</title>
     
-    <!-- Modern Tech/Agency Font -->
+    <!-- Typography: Manrope for that signature clean Webflow Agency look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* --- CSS VARIABLES --- */
         :root {
-            --bg-base: #020202;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --card-hover: rgba(255, 255, 255, 0.06);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --text-main: #FFFFFF;
-            --text-muted: #999999;
-            --accent: #E0E0E0;
-            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --bg-color: #000000;
+            --card-bg: #050505;
+            --card-hover: #0a0a0a;
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.2);
+            --text-primary: #F2F2F2;
+            --text-secondary: #888888;
+            --font-main: 'Manrope', sans-serif;
+            --radius-lg: 24px;
+            --radius-full: 100px;
         }
 
         * {
@@ -30,12 +31,12 @@
         }
 
         body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
             font-family: var(--font-main);
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            line-height: 1.5;
+            line-height: 1.4;
         }
 
         a {
@@ -43,405 +44,427 @@
             color: inherit;
         }
 
-        img, video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* --- BACKGROUND GLOW EFFECT --- */
-        .glow-bg {
+        /* 1. THE WEBFLOW NOISE TEXTURE */
+        .noise-overlay {
             position: fixed;
-            top: -20%;
-            left: 20%;
-            width: 60vw;
-            height: 60vw;
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            z-index: -1;
-            filter: blur(80px);
-            animation: pulse 10s infinite alternate;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1) translate(0, 0); opacity: 0.5; }
-            100% { transform: scale(1.2) translate(5%, 5%); opacity: 1; }
-        }
-
-        /* --- FLOATING NAVIGATION --- */
-        nav {
+        /* 2. BACKGROUND GLOW */
+        .ambient-glow {
             position: fixed;
-            top: 2rem;
+            top: -10%;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(10, 10, 10, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border-color);
-            padding: 0.75rem 1.5rem;
-            border-radius: 100px;
-            display: flex;
-            gap: 2rem;
-            z-index: 1000;
-            align-items: center;
+            width: 60vw;
+            height: 40vw;
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(60px);
+            z-index: -1;
+            pointer-events: none;
         }
 
-        nav a {
+        /* 3. PILL NAVIGATION */
+        nav {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-full);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
             font-size: 0.85rem;
             font-weight: 500;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             transition: color 0.3s;
         }
 
-        nav a:hover, nav a.active {
-            color: var(--text-main);
+        .nav-links a:hover {
+            color: var(--text-primary);
         }
 
-        nav .logo {
-            font-weight: 700;
-            color: var(--text-main);
-            padding-right: 2rem;
-            border-right: 1px solid var(--border-color);
+        .nav-btn {
+            background: var(--text-primary);
+            color: var(--bg-color);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: transform 0.2s;
         }
 
-        /* --- HERO SECTION --- */
+        .nav-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* 4. HERO SECTION */
         .hero {
-            padding: 12rem 5% 4rem;
+            padding: 15rem 5% 6rem;
             text-align: center;
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
-        .badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.05);
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 500;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
             margin-bottom: 2rem;
-            color: var(--text-muted);
         }
 
-        .badge span {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background: #4ade80; /* Green dot */
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #ffffff;
             border-radius: 50%;
-            margin-right: 8px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            font-weight: 500;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
             margin-bottom: 1.5rem;
         }
 
+        .hero h1 span {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
         .hero p {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 3rem;
-        }
-
-        /* --- INFINITE MARQUEE --- */
-        .marquee-wrapper {
-            width: 100%;
-            overflow: hidden;
-            background: var(--card-bg);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem 0;
-            margin-bottom: 4rem;
-        }
-
-        .marquee {
-            display: flex;
-            white-space: nowrap;
-            animation: marquee 20s linear infinite;
-        }
-
-        .marquee span {
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-right: 3rem;
-            color: var(--text-muted);
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* --- BENTO GRID LAYOUT --- */
-        .container {
-            max-width: 1200px;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 500px;
             margin: 0 auto;
-            padding: 0 5% 8rem;
+            font-weight: 400;
+        }
+
+        /* 5. STRICT BENTO GRID */
+        .bento-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px 8rem;
         }
 
         .bento-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: 350px;
-            gap: 1.5rem;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 320px;
+            gap: 16px;
         }
 
-        /* Glassmorphism Card Style */
-        .card {
+        .bento-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 32px;
-            padding: 2.5rem;
+            border-radius: var(--radius-lg);
             position: relative;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
+            padding: 32px;
+        }
+
+        .bento-card:hover {
+            background: var(--card-hover);
+            border-color: var(--border-hover);
+        }
+
+        /* Layout Spans */
+        .col-2 { grid-column: span 2; }
+        .col-3 { grid-column: span 3; }
+        .col-4 { grid-column: span 4; }
+        .row-2 { grid-row: span 2; }
+
+        /* Icon Arrow (Top Right) */
+        .card-arrow {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .bento-card:hover .card-arrow {
+            background: var(--text-primary);
+            color: var(--bg-color);
+            transform: scale(1.1) rotate(45deg);
+        }
+
+        /* Text Cards */
+        .card-content {
+            margin-top: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .bento-card h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .bento-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Image/Video Cards */
+        .media-card {
+            padding: 0;
             justify-content: flex-end;
         }
 
-        .card:hover {
-            background: var(--card-hover);
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Grid Sizing Rules */
-        .span-2 { grid-column: span 2; }
-        .span-3 { grid-column: span 3; }
-        .row-2 { grid-row: span 2; }
-
-        /* Specific Card Adjustments */
-        .card-media {
-            padding: 0; /* Remove padding to let image fill */
-        }
-
-        .card-media img, .card-media video {
+        .media-card img, .media-card video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            transition: transform 0.8s ease;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: grayscale(20%);
         }
 
-        .card-media:hover img {
-            transform: scale(1.05);
+        .bento-card:hover img, .bento-card:hover video {
+            transform: scale(1.04);
+            filter: grayscale(0%);
         }
 
-        .card-media .overlay-text {
-            position: relative;
-            z-index: 2;
-            padding: 2.5rem;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 1rem;
-        }
-
-        /* Text Only Card */
-        .card-text {
-            justify-content: flex-start;
-        }
-        
-        .card-text h2 {
-            font-size: 2.5rem;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .icon-top-right {
+        .media-overlay {
             position: absolute;
-            top: 2rem;
-            right: 2rem;
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(5px);
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 32px 32px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            z-index: 2;
         }
 
-        /* --- BUTTONS --- */
-        .btn-primary {
+        .media-overlay h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .media-overlay span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 6. MASSIVE FOOTER */
+        footer {
+            padding: 8rem 24px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-title {
+            font-size: clamp(4rem, 12vw, 12rem);
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            line-height: 0.85;
+            color: var(--text-primary);
+            transition: color 0.3s;
             display: inline-block;
-            background: var(--text-main);
-            color: var(--bg-base);
-            padding: 1rem 2.5rem;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
-        .btn-primary:hover {
-            transform: scale(1.03);
-            opacity: 0.9;
+        .footer-title:hover {
+            color: rgba(255,255,255,0.7);
         }
 
-        /* --- SCROLL REVEAL --- */
-        .reveal {
+        /* Scroll Animations */
+        .fade-up {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal.active {
+        .fade-up.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            .bento-grid {
-                grid-template-columns: 1fr;
-                grid-auto-rows: 300px;
-            }
-            .span-2, .span-3 { grid-column: span 1; }
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+            .col-3, .col-4 { grid-column: span 2; }
+        }
+        @media (max-width: 600px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .col-2, .col-3, .col-4 { grid-column: span 1; }
+            .nav-links { display: none; }
             .row-2 { grid-row: span 1; }
-            nav { width: 90%; justify-content: space-between; }
-            nav a:not(.logo) { display: none; } /* Hide links on mobile */
         }
     </style>
 </head>
 <body>
 
-    <!-- Soft glowing orb in the background -->
-    <div class="glow-bg"></div>
+    <!-- Webflow Vibe Enablers -->
+    <div class="noise-overlay"></div>
+    <div class="ambient-glow"></div>
 
-    <!-- Floating Pill Navigation -->
+    <!-- Navigation -->
     <nav>
-        <a href="#" class="logo">JM.</a>
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="#" class="nav-logo">JM.</a>
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+        </div>
+        <a href="#contact" class="nav-btn">Let's Talk</a>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero reveal">
-        <div class="badge"><span></span> Available for new projects</div>
-        <h1>Visuals that<br>speak volumes.</h1>
-        <p>A multidisciplinary creator specializing in cinematography, photography, and spatial choreography based in Delhi-NCR.</p>
-        <a href="#contact" class="btn-primary">Book a Session</a>
+    <section class="hero fade-up">
+        <div class="status-pill">
+            <div class="status-dot"></div>
+            Accepting commissions for Q3
+        </div>
+        <h1>Motion <span>&</span><br>Emotion.</h1>
+        <p>Filmmaker, Photographer, and Choreographer crafting high-end visual narratives.</p>
     </section>
 
-    <!-- Scrolling Text Marquee -->
-    <div class="marquee-wrapper reveal">
-        <div class="marquee">
-            <!-- Repeated text for infinite loop effect -->
-            <span>Cinematography</span><span>•</span>
-            <span>Short Films</span><span>•</span>
-            <span>Wedding Photography</span><span>•</span>
-            <span>Choreography</span><span>•</span>
-            <span>Creative Direction</span><span>•</span>
-            <span>Cinematography</span><span>•</span>
-            <span>Short Films</span><span>•</span>
-            <span>Wedding Photography</span><span>•</span>
-            <span>Choreography</span><span>•</span>
-            <span>Creative Direction</span><span>•</span>
-        </div>
-    </div>
-
-    <!-- BENTO GRID -->
-    <main class="container">
+    <!-- Bento Grid Section -->
+    <section class="bento-wrapper" id="work">
         <div class="bento-grid">
             
-            <!-- Bento Box 1: Intro / Text (Spans 2 columns) -->
-            <div class="card card-text span-2 reveal">
-                <h2>The intersection of motion and emotion.</h2>
-                <p>I blend the rhythm of dance with the composition of a camera. Whether framing a cinematic sequence or capturing an unscripted wedding moment, I distill raw feeling into visual art.</p>
-                <div class="icon-top-right">
-                    <!-- Simple SVG Arrow -->
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            <!-- Card 1: Intro Text (Spans 2 cols) -->
+            <div class="bento-card col-2 fade-up" style="transition-delay: 0.1s;">
+                <div class="card-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </div>
+                <div class="card-content">
+                    <h2>Creative Direction</h2>
+                    <p>Blending the rhythm of dance with the composition of a camera to distill raw feeling into visual art.</p>
                 </div>
             </div>
 
-            <!-- Bento Box 2: Quick Stat / Contact -->
-            <div class="card reveal">
-                <h3>5+ Years</h3>
-                <p>Crafting visual stories for brands, couples, and artists globally.</p>
-                <br>
-                <a href="mailto:hello@justinmishra.com" style="color: #fff; text-decoration: underline;">Say Hello</a>
+            <!-- Card 2: Location/Stats -->
+            <div class="bento-card fade-up" style="transition-delay: 0.2s;">
+                <div class="card-content">
+                    <h2 style="font-size: 3rem; font-weight: 300;">NCR</h2>
+                    <p>Based in Delhi-NCR.<br>Available Worldwide.</p>
+                </div>
             </div>
 
-            <!-- Bento Box 3: Main Showreel Video (Spans 2 columns, tall) -->
-            <div class="card card-media span-2 row-2 reveal">
+            <!-- Card 3: Small Image -->
+            <a href="#" class="bento-card media-card fade-up" style="transition-delay: 0.3s;">
+                <img src="https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=600&q=80" alt="Choreography">
+                <div class="card-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                <div class="media-overlay">
+                    <h3>Choreography</h3>
+                </div>
+            </a>
+
+            <!-- Card 4: Main Showreel (Spans 2 cols, 2 rows) -->
+            <a href="#" class="bento-card media-card col-2 row-2 fade-up" style="transition-delay: 0.1s;">
                 <video autoplay loop muted playsinline>
-                    <!-- Replace with your actual video link -->
                     <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
                 </video>
-                <div class="overlay-text">
-                    <h3>2024 Showreel</h3>
-                    <p>Director / Cinematographer</p>
+                <div class="card-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                <div class="media-overlay">
+                    <h3>2024 Directing Showreel</h3>
+                    <span>Cinematography</span>
                 </div>
-            </div>
+            </a>
 
-            <!-- Bento Box 4: Project 1 -->
-            <div class="card card-media reveal">
-                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80" alt="Short Film">
-                <div class="overlay-text">
+            <!-- Card 5: Project Image 1 -->
+            <a href="#" class="bento-card media-card col-2 fade-up" style="transition-delay: 0.2s;">
+                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1000&q=80" alt="Short Film">
+                <div class="card-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                <div class="media-overlay">
                     <h3>The Flow of Remembrance</h3>
-                    <p>Short Film</p>
+                    <span>Short Film</span>
                 </div>
-            </div>
+            </a>
 
-            <!-- Bento Box 5: Project 2 -->
-            <div class="card card-media reveal">
-                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" alt="Wedding">
-                <div class="overlay-text">
+            <!-- Card 6: Project Image 2 -->
+            <a href="#" class="bento-card media-card col-2 fade-up" style="transition-delay: 0.3s;">
+                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1000&q=80" alt="Wedding">
+                <div class="card-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></div>
+                <div class="media-overlay">
                     <h3>Unscripted</h3>
-                    <p>Wedding Series</p>
+                    <span>Wedding Series</span>
                 </div>
-            </div>
-
-            <!-- Bento Box 6: Services List (Spans full width) -->
-            <div class="card span-3 reveal" style="flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
-                <div>
-                    <h2>Let's build something.</h2>
-                    <p>Currently accepting commissions for Q3 2024.</p>
-                </div>
-                <a href="#contact" class="btn-primary">Start a Project</a>
-            </div>
+            </a>
 
         </div>
-    </main>
+    </section>
 
-    <!-- Intersection Observer for Scroll Reveal -->
+    <!-- Massive Cinematic Footer -->
+    <footer id="contact" class="fade-up">
+        <a href="mailto:hello@justinmishra.com" class="footer-title">HELLO@<br>JUSTINMISHRA</a>
+    </footer>
+
+    <!-- Intersection Observer for smooth scrolling reveals -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
+                entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
+                        entry.target.classList.add('visible');
                     }
                 });
-            }, { threshold: 0.1 });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            });
 
-            document.querySelectorAll('.reveal').forEach((el) => {
+            document.querySelectorAll('.fade-up').forEach((el) => {
                 observer.observe(el);
             });
         });
